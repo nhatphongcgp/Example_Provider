@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_api_app/provider/example_provider.dart';
 import 'package:provider_api_app/provider/quote_provider.dart';
+import 'package:provider_api_app/screen/screen_one.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -73,6 +74,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 100,
                 color: Colors.blue,
                 child: Text('ProviderPRoxy'),
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider.value(
+                  value: _provider,
+                  builder: (context, child) => ScreenOne(),
+                ),
+              ),
+            ),
+            child: Center(
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.blue,
+                child: const Text('Move to next page'),
               ),
             ),
           ),

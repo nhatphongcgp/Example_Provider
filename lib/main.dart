@@ -13,53 +13,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //   return ChangeNotifierProvider<QuoteProvider>(
-    //     create: (context) => QuoteProvider(),
-    //     child: MaterialApp(
-    //       title: 'Flutter Provider Demo',
-    //       theme: ThemeData(
-    //         primarySwatch: Colors.blue,
-    //       ),
-    //       home: const HomeScreen(),
-    //     ),
-    //   );
-    // }
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider(
-    //       create: (context) => ExampleProvider(),
-    //     ),
-    //     ChangeNotifierProvider(
-    //       create: (context) => QuoteProvider(),
-    //     )
-    //   ],
-    //   child: MaterialApp(
-    //     title: 'Flutter Provider Demo',
-    //     theme: ThemeData(
-    //       primarySwatch: Colors.blue,
-    //     ),
-    //     home: const HomeScreen(),
-    //   ),
-    // );
-
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => ExampleProvider(),
-        ),
-        ChangeNotifierProxyProvider<ExampleProvider, QuoteProvider>(
-          create: (context) => QuoteProvider(exampleProvider: Provider.of<ExampleProvider>(context, listen: false)),
-          update: (context, ExampleProvider exampleProvider, QuoteProvider? quoteProvider) {
-            return QuoteProvider(exampleProvider: exampleProvider);
-          },
-        )
-      ],
-      child: MaterialApp(
-        title: 'Flutter Provider Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const HomeScreen(),
+    return MaterialApp(
+      title: 'Flutter Provider Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => ExampleProvider(),
+          ),
+          ChangeNotifierProxyProvider<ExampleProvider, QuoteProvider>(
+            create: (context) => QuoteProvider(exampleProvider: Provider.of<ExampleProvider>(context, listen: false)),
+            update: (context, ExampleProvider exampleProvider, QuoteProvider? quoteProvider) {
+              return QuoteProvider(exampleProvider: exampleProvider);
+            },
+          )
+        ],
+        child: const HomeScreen(),
       ),
     );
   }
